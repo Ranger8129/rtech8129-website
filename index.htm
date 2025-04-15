@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My APK Store</title>
+  <style>
+    :root {
+      --bg: #f2f2f2;
+      --text: #333;
+      --card: #fff;
+      --accent: #28a745;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #eee;
+      --card: #1e1e1e;
+      --accent: #4caf50;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      transition: all 0.3s ease;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    #searchInput {
+      padding: 10px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .toggle-container {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .column h2 {
+      text-align: center;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    /* Category Filter */
+    .category-filter {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    /* APK Store Style */
+    .apk-playstore {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .app-card {
+      display: flex;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 15px;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .app-card img {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .app-details {
+      flex: 1;
+    }
+
+    .app-details h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .app-details p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: gray;
+      margin-bottom: 8px;
+    }
+
+    .app-details a {
+      background: var(--accent);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .app-details a:hover {
+      opacity: 0.9;
+    }
+
+    /* Website Section */
+    .website-card {
+      background: var(--card);
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .website-card h3 {
+      margin: 0 0 10px;
+    }
+
+    .website-card a {
+      background: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .website-card a:hover {
+      background: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📲 My APK & Website Hub</h1>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search APKs..." onkeyup="searchAPK()">
+    </div>
+    <div class="toggle-container">
+      <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- APK Column -->
+    <div class="column">
+      <h2>📱 APK Downloads</h2>
+
+      <div class="category-filter">
+        <label for="category">Filter by category:</label>
+        <select id="category" onchange="filterCategory()">
+          <option value="all">All</option>
+          <option value="Tools">Tools</option>
+          <option value="Games">Games</option>
+          <option value="Social">Social</option>
+        </select>
+      </div>
+
+      <div class="apk-playstore" id="apkList">
+
+        <!-- Example App 1 -->
+        <div class="app-card" data-category="Tools">
+          <img src="icons/app1.png" alt="App Icon">
+          <div class="app-details">
+            <h3>File Cleaner</h3>
+            <div class="meta">⭐ 4.5 | 10K+ installs | Tools</div>
+            <p>Cleans junk files and boosts performance.</p>
+            <a href="apks/filecleaner.apk" download>Download</a>
+          </div>
+        </div>
+
+        <!-- Example App 2 -->
+        <div class="app-card" data-category="Games">
+          <img src="icons/app2.png" alt="App Icon">
+          <div class="app-details">
+            <h3>Jump King</h3>
+            <div class="meta">⭐ 4.2 | 500K+ installs | Games</div>
+            <p>A fun jumping adventure game with retro vibes.</p>
+            <a href="apks/jumpking.apk" download>Download</a>
+          </div>
+        </div>
+
+        <!-- Add more app-card blocks here -->
+
+      </div>
+    </div>
+
+    <!-- Website Column -->
+    <div class="column">
+      <h2>🌐 Useful Websites</h2>
+      <div id="websiteList">
+
+        <div class="website-card">
+          <h3>APKMirror</h3>
+          <a href="https://www.apkmirror.com" target="_blank">Visit</a>
+        </div>
+
+        <!-- Add more website-card blocks here -->
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function searchAPK() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const cards = document.querySelectorAll(".app-card");
+
+      cards.forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = title.includes(input) ? "flex" : "none";
+      });
+    }
+
+    function filterCategory() {
+      const category = document.getElementById("category").value;
+      const cards = document.querySelectorAll(".app-card");
+
+      cards.forEach(card => {
+        const appCategory = card.getAttribute("data-category");
+        card.style.display = category === "all" || appCategory === category ? "flex" : "none";
+      });
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+  </script>
+
+</body>
+</html>
